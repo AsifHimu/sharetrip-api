@@ -72,13 +72,23 @@ app.get("/search", async function(req, res) {
     });
     
     if(matchingPosts.length > 0){
+        //save matching posts in the database
         const savedPosts = await Post.insertMany(matchingPosts);
+        
+        //save the search
+        const search = new Search();
+        search.keyword = keyword;
+        search.posts = savedPosts.map(function (savePost) {
+            return savePost._id;
+        });
+        await search.save();
+        
+        //return the matching posts to the user
         res.json(matchingPosts);
     }else{
+        //send an empty array if no matches
         res.status(200).json([]);
     }
-
-    res.status(200).json(externalApiResponse.data);
 });
 
 //check server
