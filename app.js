@@ -71,6 +71,13 @@ app.get("/search", async function(req, res) {
         )
     });
     
+    if(matchingPosts.length > 0){
+        const savedPosts = await Post.insertMany(matchingPosts);
+        res.json(matchingPosts);
+    }else{
+        res.status(200).json([]);
+    }
+
     res.status(200).json(externalApiResponse.data);
 });
 
