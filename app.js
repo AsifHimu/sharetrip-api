@@ -5,10 +5,10 @@ const axios = require("axios");
 const app = express();
 const port = 3000;
 
-app.get("/search", function(req, res) {
+app.get("/search", async function(req, res) {
     const keyword = req.query.keyword;
-    console.log(keyword);
-    res.send("HELLO");
+    const externalApiResponse = await axios.get("https://jsonplaceholder.typicode.com/posts");
+    res.status(200).json(externalApiResponse.data);
 });
 
 app.listen(port, function () {
