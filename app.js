@@ -10,10 +10,22 @@ mongoose
 
 //Creating postSchema
 const postSchema = new mongoose.Schema({
-    userId: Number,
-    id: Number,
-    title: String,
-    body: String,
+    userId: {
+        type: Number,
+        required: true,
+    },
+    id: {
+        type: Number,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    body: {
+        type: String,
+        required: true,
+    },
     timestamp: { type: Date, default: Date.now },
 });
 
@@ -22,8 +34,16 @@ const Post = mongoose.model("Post", postSchema);
 
 //Creating searchSchema
 const searchSchema = new mongoose.Schema({
-    keyword: String,
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post"}],
+    keyword: {
+        type: String,
+        required: true,
+    },
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+        },
+    ],
     timestamp: { type: Date, default: Date.now },
 });
 
