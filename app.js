@@ -20,6 +20,16 @@ const postSchema = new mongoose.Schema({
 //Creating posts model
 const Post = mongoose.model("Post", postSchema);
 
+//Creating searchSchema
+const searchSchema = new mongoose.Schema({
+    keyword: String,
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post"}],
+    timestamp: { type: Date, default: Date.now },
+});
+
+//Creating searches model
+const Search = mongoose.model("Search", searchSchema);
+
 //server create
 const app = express();
 const port = 3000;
