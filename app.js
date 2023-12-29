@@ -8,6 +8,18 @@ mongoose
     .then(() => console.log("DB connected!"))
     .catch((err) => console.log("DB connection fail!"));
 
+//Creating postSchema
+const postSchema = new mongoose.Schema({
+    userId: Number,
+    id: Number,
+    title: String,
+    body: String,
+    timestamp: { type: Date, default: Date.now },
+});
+
+//Creating posts model
+const Post = mongoose.model("Post", postSchema);
+
 //server create
 const app = express();
 const port = 3000;
