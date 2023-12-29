@@ -57,10 +57,19 @@ const port = 3000;
 // Get route http://localhost:3000/search?keyword="mango"
 app.get("/search", async function(req, res) {
     const keyword = req.query.keyword;
+    
     //external api call
     const externalApiResponse = await axios.get("https://jsonplaceholder.typicode.com/posts");
 
     const posts = externalApiResponse.data;
+
+    //filter post based on keyword
+    const matchingPosts = posts.filter((post) => {
+        return(
+            post.title.toLowerCase().includes(keyword.toLowerCase()) ||
+            post.body.toLowerCase().includes(keyword.toLowerCase())
+        )
+    });
     
     res.status(200).json(externalApiResponse.data);
 });
